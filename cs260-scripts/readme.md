@@ -30,3 +30,16 @@ The review file is then generated. On finishing the grading operation, the stude
 
 Future ideas which I may implement if found time to:
 LaTeX integration of the review
+
+GUIDELINES:
+files needed to mod:
+   class-list.csv = the list of all userids in a single column without any header or comma
+   attr.csv = the weights of each question
+   mail_grades.py = enter your smtp, credentials for mailing students, change subject as needed
+   python grade center = change assignment name if needed
+   
+   
+1. run python grade center file in the same dir containing assignments in the dir structure ./<username>/>files<
+2. after grading is done, obtain the reviews folder one level above
+3. run mail grades with the python program and the assignments folder in the same dir
+4. run compile grades to compile final grades in a csv

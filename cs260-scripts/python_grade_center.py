@@ -4,15 +4,12 @@ import os
 course_name = "cs260"
 assignment_name = "hw3"
 review_dir = "../reviews/"
-grades_dir = "../grades/"
 
 attr_csv = "./attr.csv"
 
 def start():
     if not os.path.exists(review_dir):
         os.makedirs(review_dir)
-    if not os.path.exists(grades_dir):
-        os.makedirs(grades_dir)
     skip_flag = False
     i = 0
 
@@ -33,7 +30,7 @@ def start():
                 skip_flag = False
             for sub_root, sub_dir_2, sub_files in os.walk(username):
                 if "%s.pdf"%assignment_name in sub_files:
-                    os.system( "xdg-open " + username +"/"+ leaf_file )
+                    os.system( "xdg-open " + username +"/"+ assignment_name + ".pdf" )
                 else:
                     for leaf_file in sub_files:
                         ch = raw_input("open file %s [y/(n)]?"%leaf_file)
@@ -51,6 +48,6 @@ def start():
             selection = raw_input("Put up overall comments? [y/n]: ")
             if selection == 'y':
                 sol_sheet.add_comments( raw_input("Paste additional comments:\n") )
-            sol_sheet.to_file( review_dir+username+assignment_name )
+            sol_sheet.to_file( review_dir+username+"."+assignment_name )
 
 start()

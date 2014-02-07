@@ -21,13 +21,13 @@ from email.MIMEText import MIMEText
 
 
 def mail(directory):
-    subject="[ CS 260 ][ Grade ][ REVIEW ] - Homework 2"
+    subject="[ CS 260 ][ Grade ][ REVIEW ] - Homework 3 Written"
     i = 0
     for root, dirs, filenames in os.walk(directory):
         for f in filenames:
                 content= open(os.path.join(root,f) ).read()
                 destination = []
-                rex = re.compile("(.*).t2")
+                rex = re.compile("(.*)hw3")
                 destination.append(rex.search(f).groups()[0] + "@drexel.edu")
                 print "Mailing to Destination " , rex.search(f).groups()[0]
                 try:
@@ -46,4 +46,4 @@ def mail(directory):
                 except Exception, exc:
                     sys.exit( "mail failed; %s" % str(exc) ) # give a error message
 
-mail("./stack/t2/reviews/")
+mail("./reviews/")

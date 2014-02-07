@@ -1,6 +1,7 @@
 from __future__ import print_function
 from question import Question
 import csv
+import math
 
 max_marks = 60.0
 class ReviewSheet:
@@ -15,7 +16,7 @@ class ReviewSheet:
             for line in reader:
                 self.question_list.append( Question(line['name'], int(line['weight'])) )
                 sum += int(line['weight'])
-        self.x = max_marks/float(sum)
+        self.x = max_marks/float(sum*3)
         print("NOTE: Grade point value = "+ str(self.x))
         
     def get_total_points(self):
@@ -38,13 +39,13 @@ class ReviewSheet:
     def to_file(self, filename):
         file_obj = open(filename, 'w')
         sum = self.get_total_points()
-        print("Marks Obtained: %d"%(sum), file=file_obj)
+        print("Marks Obtained: %d"%(math.ceil(sum*self.x)), file=file_obj)
         
         for question in self.question_list:
             if question.get_points() != 3:
                 print("\n", file=file_obj)
                 print(question.get_name(), file=file_obj)
-                print( "Points Deducted = " , (3*question.get_weight() - question.get_net_points())*self.x, "/", 3*question.get_weight()*self.x, file=file_obj)
+                print( "Points Deducted = " , (3*question.get_weight() - question.get_net_points())*self.x, "/", (3*question.get_weight()*self.x), file=file_obj)
                 print( "Review:\n" , question.get_review(), file=file_obj )
         print("\nADDITIONAL COMMENTS: \n", self.comments, file=file_obj)
     
