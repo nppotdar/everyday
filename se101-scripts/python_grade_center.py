@@ -1,12 +1,13 @@
 import os
 import re
+import getpass
 course_name = "se101"
 
 dir_txts = "./txts"
 dir_repos = "./repos"
 
 def start():
-
+    pswd = getpass.getpass("Enter password: ")
     #gather the list of git repositories
     regex = re.compile(r"(https://[^\s]*[@]?)(bitbucket.org/[^\s]*)")
     list_of_git_strings = []
@@ -16,12 +17,12 @@ def start():
                 for line in f:
                     result = regex.search(line)
                     if result != None:
-                        list_of_git_strings.append("https://nppotdar:Ameya_123@" + result.groups()[1])
+                        list_of_git_strings.append(r"https://nppotdar:%s@"%pswd + result.groups()[1])
 
     #obtained a list of git repos, now need to pull em
     os.chdir( dir_repos )
     for git_repo in list_of_git_strings:
-        regex = re.compile(r"https://nppotdar:Ameya_123@bitbucket.org/([^/]*)/[^\s]*")
+        regex = re.compile(r"https://nppotdar:" + pswd+ "@bitbucket.org/([^/]*)/[^\s]*")
         print git_repo
         user_string = regex.search(git_repo).groups()[0]
         os.system( "mkdir %s" % (user_string) )
